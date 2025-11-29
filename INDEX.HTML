@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Malla Curricular Ingeniería Química</title>
+<style>
+    body {
+        font-family: "Segoe UI", sans-serif;
+        background: #f4f7fb;
+        margin: 0;
+        padding: 20px;
+        color: #333;
+    }
+    h1 {
+        text-align: center;
+        color: #345;
+        margin-bottom: 30px;
+    }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        gap: 15px;
+    }
+    .semester {
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .semester h2 {
+        font-size: 16px;
+        text-align: center;
+        margin-bottom: 10px;
+        color: #2d4f6c;
+    }
+    .course {
+        padding: 8px;
+        margin: 6px 0;
+        border-radius: 6px;
+        background: #e8eef5;
+        cursor: pointer;
+        position: relative;
+        transition: 0.2s;
+    }
+    .course.locked {
+        background: #ddd;
+        cursor: not-allowed;
+    }
+    .course.approved {
+        background: #b6e3b0;
+        text-decoration: line-through;
+    }
+    .tooltip {
+        visibility: hidden;
+        opacity: 0;
+        background: #333;
+        color: #fff;
+        padding: 6px;
+        border-radius: 5px;
+        position: absolute;
+        left: 105%;
+        top: 50%;
+        transform: translateY(-50%);
+        white-space: nowrap;
+        font-size: 12px;
+        transition: 0.2s;
+    }
+    .course.locked:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+</style>
+</head>
+<body>
+
+<h1>Malla Curricular - Ingeniería Química</h1>
+
+<div class="grid" id="grid"></div>
+
+<script>
+const semesters = {
+    "1": ["Química General","Vivamos la Universidad","Español Académico","Álgebra y Trigonometría",
+          "Geometría Euclidiana","Cálculo Diferencial","English 1"],
+    "2": ["Introducción Ingeniería Química","Química Inorgánica","Descubriendo la Física",
+          "Expresión Gráfica para Ingenieros","Geometría Vectorial y Analítica","Cálculo Integral","English 2"],
+    "3": ["Química Orgánica","Algoritmos y Programación","Cátedra Formación Ciudadana y Constitucional",
+          "Física Mecánica","Álgebra Lineal","Cálculo Vectorial","English 3"],
+    "4": ["Ecuaciones Diferenciales","Química Analítica e Instrumental","Biología para Ingenieros",
+          "Termodinámica I","Física de Campos","English 4"],
+    "5": ["Ingeniería Económica","Balances de Materia y Energía","Fenómenos de Transporte I",
+          "Termodinámica II","Física de Ondas","English 5"],
+    "6": ["Fenómenos de Transporte II","Termodinámica Química","Matemáticas Especiales",
+          "Mecánica de Fluidos","Laboratorio Integrado de Física"],
+    "7": ["Operaciones con Transferencia de Calor","Operaciones con Transferencia de Masa",
+          "Estadística y Diseño de Experimentos","Ingeniería de los Materiales","Ética"],
+    "8": ["Fundamentos de Economía","Electricidad y Electrónica","Ingeniería de las Reacciones Químicas",
+          "Operaciones con Sólidos","Anteproyecto"],
+    "9": ["Diseño de Procesos y Productos I","Control de Procesos"],
+    "10":["Diseño de Procesos y Productos II"]
+};
+
+// Dependencias simples de ejemplo (puedes ajustarlas)
+const prereqs = {
+    "Química Inorgánica":["Química General"],
+    "Química Orgánica":["Química General","Química Inorgánica"],
+    "Termodinámica I":["Física Mecánica","Cálculo Vectorial"],
+    "Fenómenos de Transporte I":["Ecuaciones Diferenciales"],
+    "Fenómenos de Transporte II":["Fenómenos de Transporte I"],
+    "Termodinámica II":["Termodinámica I"],
+    "Termodinámica Química":["Termodinámica II"]
+};
+
+let approved = JSON.parse(localStorage.getItem("approvedCourses") || "[]");
+
+function renderGrid() {
+    const container = document.getElementById("grid");
+    container.innerHTML = "";
+
+    for (let sem in semesters) {
+        const col = document.createElement("div");
+        col.className = "semester";
+
+        const title = document.createElement("h2");
+        title.textContent = `Semestre ${sem}`;
+        col.appendChild(title);
+
+        semesters[sem].forEach(course => {
+            const div = document.createElement("div");
+            div.className = "course";
+
+            if (approved.includes(course)) div.classList.add("approved");
+
+            const reqs = prereqs[course] || [];
+            const missing = reqs.filter(r => !approved.includes(r));
+
+            if (missing.length > 0) {
+                div.classList.add("locked");
+                const tip = document.createElement("div");
+                tip.className = "tooltip";
+                tip.textContent = "Faltan: " + missing.join(", ");
+                div.appendChild(tip);
+            }
+
+            div.textContent = course;
+            div.onclick = () => toggleCourse(course);
+            col.appendChild(div);
+        });
+
+        container.appendChild(col);
+    }
+}
+
+function toggleCourse(course) {
+    const reqs = prereqs[course] || [];
+    const missing = reqs.filter(r => !approved.includes(r));
+
+    if (missing.length > 0) return;
+
+    if (approved.includes(course))
+        approved = approved.filter(c => c !== course);
+    else
+        approved.push(course);
+
+    localStorage.setItem("approvedCourses", JSON.stringify(approved));
+    renderGrid();
+}
+
+renderGrid();
+</script>
+
+</body>
+</html>
