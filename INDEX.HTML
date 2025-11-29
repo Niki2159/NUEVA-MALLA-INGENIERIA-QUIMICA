@@ -106,120 +106,58 @@ h1 {
 
 <script>
 const semesters = {
-    1: [
-        ["Química General", 4],
-        ["Vivamos la Universidad", 1],
-        ["Español Académico", 3],
-        ["Álgebra y Trigonometría", 3],
-        ["Geometría Euclidiana", 3],
-        ["Cálculo Diferencial", 3],
-        ["English 1", 2]
-    ],
-    2: [
-        ["Introducción Ingeniería Química", 1],
-        ["Química Inorgánica", 4],
-        ["Descubriendo la Física", 3],
-        ["Expresión Gráfica para Ingenieros", 3],
-        ["Geometría Vectorial y Analítica", 3],
-        ["Cálculo Integral", 3],
-        ["English 2", 2]
-    ],
-    3: [
-        ["Química Orgánica", 4],
-        ["Algoritmos y Programación", 3],
-        ["Cátedra de Formación Ciudadana y Constitucional", 1],
-        ["Física Mecánica", 3],
-        ["Álgebra Lineal", 3],
-        ["Cálculo Vectorial", 3],
-        ["English 3", 2]
-    ],
-    4: [
-        ["Ecuaciones Diferenciales", 3],
-        ["Química Analítica e Instrumental", 4],
-        ["Biología para Ingenieros", 3],
-        ["Termodinámica I", 4],
-        ["Física de Campos", 3],
-        ["English 4", 2]
-    ],
-    5: [
-        ["Ingeniería Económica", 3],
-        ["Balances de Materia y Energía", 4],
-        ["Fenómenos de Transporte I", 3],
-        ["Termodinámica II", 3],
-        ["Física de Ondas", 3],
-        ["English 5", 2]
-    ],
-    6: [
-        ["Fenómenos de Transporte II", 3],
-        ["Termodinámica Química", 5],
-        ["Matemáticas Especiales", 3],
-        ["Mecánica de Fluidos", 4],
-        ["Laboratorio Integrado de Física", 2]
-    ],
-    7: [
-        ["Operaciones con Transferencia de Calor", 4],
-        ["Operaciones con Transferencia de Masa", 4],
-        ["Estadística y Diseño de Experimentos", 3],
-        ["Ingeniería de los Materiales", 4],
-        ["Ética", 1]
-    ],
-    8: [
-        ["Fundamentos de Economía", 3],
-        ["Electricidad y Electrónica", 3],
-        ["Ingeniería de las Reacciones Químicas", 4],
-        ["Operaciones con Sólidos", 4],
-        ["Anteproyecto", 1]
-    ],
-    9: [
-        ["Diseño de Procesos y Productos I", 5],
-        ["Control de Procesos", 4]
-    ],
-    10: [
-        ["Diseño de Procesos y Productos II", 3]
-    ]
+    1: [["Química General",4],["Vivamos la Universidad",1],["Español Académico",3],["Álgebra y Trigonometría",3],["Geometría Euclidiana",3],["Cálculo Diferencial",3],["English 1",2]],
+    2: [["Introducción Ingeniería Química",1],["Química Inorgánica",4],["Descubriendo la Física",3],["Expresión Gráfica para Ingenieros",3],["Geometría Vectorial y Analítica",3],["Cálculo Integral",3],["English 2",2]],
+    3: [["Química Orgánica",4],["Algoritmos y Programación",3],["Cátedra de Formación Ciudadana y Constitucional",1],["Física Mecánica",3],["Álgebra Lineal",3],["Cálculo Vectorial",3],["English 3",2]],
+    4: [["Ecuaciones Diferenciales",3],["Química Analítica e Instrumental",4],["Biología para Ingenieros",3],["Termodinámica I",4],["Física de Campos",3],["English 4",2]],
+    5: [["Ingeniería Económica",3],["Balances de Materia y Energía",4],["Fenómenos de Transporte I",3],["Termodinámica II",3],["Física de Ondas",3],["English 5",2]],
+    6: [["Fenómenos de Transporte II",3],["Termodinámica Química",5],["Matemáticas Especiales",3],["Mecánica de Fluidos",4],["Laboratorio Integrado de Física",2]],
+    7: [["Operaciones con Transferencia de Calor",4],["Operaciones con Transferencia de Masa",4],["Estadística y Diseño de Experimentos",3],["Ingeniería de los Materiales",4],["Ética",1]],
+    8: [["Fundamentos de Economía",3],["Electricidad y Electrónica",3],["Ingeniería de las Reacciones Químicas",4],["Operaciones con Sólidos",4],["Anteproyecto",1]],
+    9: [["Diseño de Procesos y Productos I",5],["Control de Procesos",4]],
+    10: [["Diseño de Procesos y Productos II",3]]
 };
 
-// Prerequisitos
 const prereqs = {
-    "Química Inorgánica": ["Química General"],
-    "Expresión Gráfica para Ingenieros": ["Geometría Euclidiana"],
-    "Cálculo Integral": ["Cálculo Diferencial", "Álgebra y Trigonometría"],
-    "English 2": ["English 1"],
-    "Química Orgánica": ["Química Inorgánica"],
-    "Cátedra de Formación Ciudadana y Constitucional": ["CREDITOS:20"],
-    "Física Mecánica": ["Geometría Vectorial y Analítica","Descubriendo la Física","Cálculo Diferencial"],
-    "Álgebra Lineal": ["Geometría Vectorial y Analítica","Álgebra y Trigonometría"],
-    "Cálculo Vectorial": ["Cálculo Integral","Geometría Vectorial y Analítica"],
-    "English 3": ["English 2"],
-    "Ecuaciones Diferenciales": ["Cálculo Integral","Álgebra Lineal"],
-    "Química Analítica e Instrumental": ["Química Orgánica"],
-    "Biología para Ingenieros": ["Química Orgánica"],
-    "Termodinámica I": ["Algoritmos y Programación"],
-    "Física de Campos": ["Física Mecánica","Cálculo Integral"],
-    "English 4": ["English 3"],
-    "Ingeniería Económica": ["CREDITOS:70"],
-    "Balances de Materia y Energía": ["Termodinámica I","Expresión Gráfica para Ingenieros"],
-    "Fenómenos de Transporte I": ["Ecuaciones Diferenciales"],
-    "Termodinámica II": ["Termodinámica I"],
-    "Física de Ondas": ["Física Mecánica"],
-    "English 5": ["English 4"],
-    "Fenómenos de Transporte II": ["Fenómenos de Transporte I"],
-    "Termodinámica Química": ["Química Analítica e Instrumental","Fenómenos de Transporte II","Balances de Materia y Energía"],
-    "Matemáticas Especiales": ["Ecuaciones Diferenciales","Algoritmos y Programación"],
-    "Mecánica de Fluidos": ["Fenómenos de Transporte I"],
-    "Laboratorio Integrado de Física": ["Física de Campos","Física de Ondas"],
-    "Operaciones con Transferencia de Calor": ["Balances de Materia y Energía","Matemáticas Especiales","Mecánica de Fluidos"],
-    "Operaciones con Transferencia de Masa": ["Fenómenos de Transporte II","Termodinámica Química"],
-    "Estadística y Diseño de Experimentos": ["Química Analítica e Instrumental"],
-    "Ingeniería de los Materiales": ["Ingeniería Económica"],
-    "Ética": ["CREDITOS:100"],
-    "Fundamentos de Economía": ["CREDITOS:50"],
-    "Electricidad y Electrónica": ["Física de Campos"],
-    "Ingeniería de las Reacciones Químicas": ["Estadística y Diseño de Experimentos","Operaciones con Transferencia de Calor","Biología para Ingenieros"],
-    "Anteproyecto": ["Estadística y Diseño de Experimentos"],
-    "Diseño de Procesos y Productos I": ["Operaciones con Transferencia de Masa","Operaciones con Sólidos","Ingeniería de las Reacciones Químicas","Ingeniería de los Materiales"],
-    "Control de Procesos": ["Electricidad y Electrónica","Ingeniería de las Reacciones Químicas"],
-    "Diseño de Procesos y Productos II": ["Diseño de Procesos y Productos I"]
+"Química Inorgánica":["Química General"],
+"Expresión Gráfica para Ingenieros":["Geometría Euclidiana"],
+"Cálculo Integral":["Cálculo Diferencial","Álgebra y Trigonometría"],
+"English 2":["English 1"],
+"Química Orgánica":["Química Inorgánica"],
+"Cátedra de Formación Ciudadana y Constitucional":["CREDITOS:20"],
+"Física Mecánica":["Geometría Vectorial y Analítica","Descubriendo la Física","Cálculo Diferencial"],
+"Álgebra Lineal":["Geometría Vectorial y Analítica","Álgebra y Trigonometría"],
+"Cálculo Vectorial":["Cálculo Integral","Geometría Vectorial y Analítica"],
+"English 3":["English 2"],
+"Ecuaciones Diferenciales":["Cálculo Integral","Álgebra Lineal"],
+"Química Analítica e Instrumental":["Química Orgánica"],
+"Biología para Ingenieros":["Química Orgánica"],
+"Termodinámica I":["Algoritmos y Programación"],
+"Física de Campos":["Física Mecánica","Cálculo Integral"],
+"English 4":["English 3"],
+"Ingeniería Económica":["CREDITOS:70"],
+"Balances de Materia y Energía":["Termodinámica I","Expresión Gráfica para Ingenieros"],
+"Fenómenos de Transporte I":["Ecuaciones Diferenciales"],
+"Termodinámica II":["Termodinámica I"],
+"Física de Ondas":["Física Mecánica"],
+"English 5":["English 4"],
+"Fenómenos de Transporte II":["Fenómenos de Transporte I"],
+"Termodinámica Química":["Química Analítica e Instrumental","Fenómenos de Transporte II","Balances de Materia y Energía"],
+"Matemáticas Especiales":["Ecuaciones Diferenciales","Algoritmos y Programación"],
+"Mecánica de Fluidos":["Fenómenos de Transporte I"],
+"Laboratorio Integrado de Física":["Física de Campos","Física de Ondas"],
+"Operaciones con Transferencia de Calor":["Balances de Materia y Energía","Matemáticas Especiales","Mecánica de Fluidos"],
+"Operaciones con Transferencia de Masa":["Fenómenos de Transporte II","Termodinámica Química"],
+"Estadística y Diseño de Experimentos":["Química Analítica e Instrumental"],
+"Ingeniería de los Materiales":["Ingeniería Económica"],
+"Ética":["CREDITOS:100"],
+"Fundamentos de Economía":["CREDITOS:50"],
+"Electricidad y Electrónica":["Física de Campos"],
+"Ingeniería de las Reacciones Químicas":["Estadística y Diseño de Experimentos","Operaciones con Transferencia de Calor","Biología para Ingenieros"],
+"Anteproyecto":["Estadística y Diseño de Experimentos"],
+"Diseño de Procesos y Productos I":["Operaciones con Transferencia de Masa","Operaciones con Sólidos","Ingeniería de las Reacciones Químicas","Ingeniería de los Materiales"],
+"Control de Procesos":["Electricidad y Electrónica","Ingeniería de las Reacciones Químicas"],
+"Diseño de Procesos y Productos II":["Diseño de Procesos y Productos I"]
 };
 
 let approved = JSON.parse(localStorage.getItem("approvedCourses") || "[]");
@@ -254,11 +192,12 @@ function renderGrid() {
 
             const reqs = prereqs[course] || [];
             const missing = [];
-            let earnedCredits = totalCredits();
+            const earnedCredits = totalCredits();
 
             reqs.forEach(r => {
+                if (!r) return;
                 if (r.startsWith("CREDITOS:")) {
-                    let need = parseInt(r.split(":")[1]);
+                    const need = parseInt(r.split(":")[1]);
                     if (earnedCredits < need) missing.push(`Créditos requeridos: ${need}`);
                 } else if (!approved.includes(r)) {
                     missing.push(r);
@@ -284,7 +223,10 @@ function renderGrid() {
             cred.textContent = credits;
             card.appendChild(cred);
 
-            card.onclick = () => toggle(course);
+            card.onclick = () => {
+                if (!card.classList.contains("locked")) toggle(course);
+            };
+
             col.appendChild(card);
         });
 
@@ -293,13 +235,15 @@ function renderGrid() {
 }
 
 function toggle(course) {
+    if (!course) return;
     const reqs = prereqs[course] || [];
-    let earnedCredits = totalCredits();
-    let unmet = [];
+    const earnedCredits = totalCredits();
+    const unmet = [];
 
     reqs.forEach(r => {
+        if (!r) return;
         if (r.startsWith("CREDITOS:")) {
-            let need = parseInt(r.split(":")[1]);
+            const need = parseInt(r.split(":")[1]);
             if (earnedCredits < need) unmet.push(`Créditos requeridos: ${need}`);
         } else if (!approved.includes(r)) {
             unmet.push(r);
